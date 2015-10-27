@@ -7,24 +7,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+    <script src="./scripts/libs/microevent.js"></script>
+    <script src="./scripts/libs/fetchival.min.js"></script>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css"/>
 	<link rel="stylesheet" href="./css/tusk.css"/>
 </head>
 <body>
 	<nav>
 		<h1>Logs</h1>
-		<ul>
-			<li><a href="#">route.log</a></li>
-			<li><a href="#">wishlist.log</a></li>
-		</ul>
+		<div id="logFiles"></div>
 	</nav>
-	<header>
-		<h1>route.log</h1>
-	</header>
 	<main></main>
 	<footer>
 		<a href="http://hamaluik.com">Kenton Hamaluik</a>
 	</footer>
-    <script type="text/babel" src="scripts/log-browser.js"></script>
+    <script type="text/babel" src="scripts/API.js"></script>
+    <script type="text/babel" src="scripts/stores/ListStore.js"></script>
+    <script type="text/babel" src="scripts/stores/LogStore.js"></script>
+    <script type="text/babel" src="scripts/components/LogFilename.js"></script>
+    <script type="text/babel" src="scripts/components/LogFiles.js"></script>
+    <script type="text/babel" src="scripts/components/LogEntryLineNumber.js"></script>
+    <script type="text/babel" src="scripts/components/LogEntry.js"></script>
+    <script type="text/babel" src="scripts/components/LogEntries.js"></script>
+    <script type="text/babel" src="scripts/components/LogHeader.js"></script>
+    <script type="text/babel" src="scripts/components/LogInspector.js"></script>
+    <script type="text/babel" src="scripts/app.js"></script>
 </body>
 </html>

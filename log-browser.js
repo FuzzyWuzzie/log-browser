@@ -1,11 +1,74 @@
 // Get the packages we need
-var express = require('express');
+var express  = require('express');
+var fs       = require('fs');
+var http     = require('http');
+var socket   = require('socket.io');
+var watch    = require('watch');
 
 // initialize the server
 var app = express();
+var server = http.Server(app);
+var io = socket(server);
 var port = process.argv[2] || 1065;
+var logDir = process.argv[3] || 'logs/';
 
 app.use(express.static('public'));
 
-app.listen(port);
-console.log('listening on *:' + port);
+var apiRouter = express.Router();
+apiRouter.use(function(err, req, res, next) {
+	res.status(400);
+	res.json(err);
+});
+
+apiRouter.route('/logs')
+	.get(function(req, res, next) {
+		fs.readdir(logDir, function(err, files) {
+			if(err) return next(err);
+			res.json(files);
+		})
+	});
+
+apiRouter.route('/log')
+	.get(function(req, res, next) {
+		res.json({
+			f: '',
+			l: [
+				{ l: 0, e: "No file selected!" }
+			]
+		});
+	});
+
+apiRouter.route('/log/:log_id')
+	.get(function(req, res, next) {
+		fs.readFile(logDir + req.params.log_id, 'utf8', function(err, data) {
+			if(err) return next(err);
+			var lines = data.split('\n');
+			var id = Math.max(0, lines.length - 100);
+			res.json({
+				f: req.params.log_id,
+				l: lines.slice(id).map(function(line) {
+					return {
+						l: id++,
+						e: line
+					};
+				})
+			});
+		});
+	});
+
+watch.createMonitor(logDir, function(monitor) {
+	var fileListChanged = function(f, stat) {
+		io.emit('filelist-changed', {file: f.substr(logDir.length)});
+	}
+	var fileChanged = function(f, stat) {
+		io.emit('file-changed', {file: f.substr(logDir.length)});
+	}
+	monitor.on('created', fileListChanged);
+	monitor.on('changed', fileChanged);
+	monitor.on('removed', fileListChanged);
+});
+
+app.use('/api/v1', apiRouter);
+server.listen(port, function() {
+	console.log('listening on *:' + port);
+});

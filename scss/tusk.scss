@@ -70,7 +70,7 @@ nav {
 	ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 0 0 0 1rem;
+		padding: 0;
 		li {
 			a {
 				padding: 0.25rem 1rem;
@@ -96,17 +96,56 @@ nav {
 	}
 }
 
-header {
-	margin-top: 1rem;
-	padding: 0 1rem;
-
-	h1, h2 {
-		display: inline;
-	}
-}
-
 main {
+	header {
+		margin-top: 1rem;
+
+		h1, h2 {
+			display: inline;
+		}
+	}
 	padding: 0 1rem;
+
+	/*ol {
+		list-style-type: none;
+		padding: 0;
+		li {
+			counter-increment: line-counter;
+			&:before {
+				content: counter(line-counter);
+				margin-right: 1rem;
+			}
+		}
+		pre {
+			display: inline;
+			font-family: "Inconsolata",;
+			margin: 0;
+		}
+	}*/
+	table {
+		border-collapse: separate;
+		border-spacing: 0.25rem;
+		width: 100%;
+		td {
+			&:first-child {
+				width: 2rem;
+				text-align: right;
+			}
+			&:nth-child(2) {
+				padding: 0 0.25rem;
+				border: 1px solid $brand-darker;
+				background: white;
+			}
+		}
+		pre {
+			margin: 0;
+		}
+		span {
+			display: block;
+			font-family: "Inconsolata",;
+			margin: 0;
+		}
+	}
 }
 
 footer {
@@ -122,18 +161,19 @@ footer {
 
 @media (min-width: 48em) {
 	// make it look as through the nav goes all the way down
+	$nav-size: 16rem;
 	body {
-	  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, $brand-darker), color-stop(20%, $brand-darker), color-stop(20%, $gray-lighter), color-stop(100%, $gray-lighter));
-	  background-image: -webkit-linear-gradient(left, $brand-darker, $brand-darker 20%, $gray-lighter 20%, $gray-lighter 100%);
-	  background-image: -moz-linear-gradient(left, $brand-darker, $brand-darker 20%, $gray-lighter 20%, $gray-lighter 100%);
-	  background-image: -ms-linear-gradient(left, $brand-darker, $brand-darker 20%, $gray-lighter 20%, $gray-lighter 100%);
-	  background-image: -o-linear-gradient(left, $brand-darker, $brand-darker 20%, $gray-lighter 20%, $gray-lighter 100);
+	  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, $brand-darker), color-stop($nav-size, $brand-darker), color-stop($nav-size, $gray-lighter), color-stop(100%, $gray-lighter));
+	  background-image: -webkit-linear-gradient(left, $brand-darker, $brand-darker $nav-size, $gray-lighter $nav-size, $gray-lighter 100%);
+	  background-image: -moz-linear-gradient(left, $brand-darker, $brand-darker $nav-size, $gray-lighter $nav-size, $gray-lighter 100%);
+	  background-image: -ms-linear-gradient(left, $brand-darker, $brand-darker $nav-size, $gray-lighter $nav-size, $gray-lighter 100%);
+	  background-image: -o-linear-gradient(left, $brand-darker, $brand-darker $nav-size, $gray-lighter $nav-size, $gray-lighter 100);
 	}
 
 	nav {
 		background: none;
 		height: 100%;
-		width: 20%;
+		width: $nav-size;
 		float: left;
 	}
 
@@ -144,23 +184,10 @@ footer {
 		}
 	}
 
-	header, main {
-		margin-left: 20%;
-		padding: 1rem 1rem 0;
-		max-width: 960px;
-	}
-
 	main {
-		padding-left: 2rem;
-
-		ul {
-			list-style-type: none;
-			padding: 0;
-			pre {
-				font-family: "Inconsolata",;
-				margin: 0;
-			}
-		}
+		margin-left: $nav-size;
+		padding: 1rem 1rem 0 2rem;
+		max-width: 960px;
 	}
 
 	footer {
