@@ -1,3 +1,9 @@
 #!/bin/sh
-touch tmp/restart.txt
-echo "restarting Passenger app"
+echo "restarting application..."
+echo "  installing node dependencies..."
+npm install
+echo "  done"
+echo "  restarting server..."
+forever restart log-browser.js
+echo "  done"
+echo "application restarted!"
