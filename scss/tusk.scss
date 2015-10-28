@@ -134,24 +134,23 @@ main {
 				}
 			}
 			.warn {
-				color: yellow;
+				color: $brand-main;
 				text-transform: uppercase;
 				&:after {
 					content: 'WARN:';
 				}
 			}
 			.info {
-				color: green;
 				margin: 0 -0.5rem 0 0;
 			}
 			.debug {
-				color: blue;
+				color: $brand-light;
 				&:after {
 					content: 'debug:';
 				}
 			}
 			.trace {
-				color: black;
+				color: $brand-darker;
 				&:after {
 					content: 'trace:';
 				}

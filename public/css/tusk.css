@@ -156,19 +156,18 @@ main {
         main ul .severity .error:after {
           content: 'ERROR:'; }
       main ul .severity .warn {
-        color: yellow;
+        color: #445878;
         text-transform: uppercase; }
         main ul .severity .warn:after {
           content: 'WARN:'; }
       main ul .severity .info {
-        color: green;
         margin: 0 -0.5rem 0 0; }
       main ul .severity .debug {
-        color: blue; }
+        color: #92CDCF; }
         main ul .severity .debug:after {
           content: 'debug:'; }
       main ul .severity .trace {
-        color: black; }
+        color: #1C1D21; }
         main ul .severity .trace:after {
           content: 'trace:'; }
     main ul .data {
