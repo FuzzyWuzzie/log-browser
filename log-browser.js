@@ -4,6 +4,16 @@ var fs       = require('fs');
 var http     = require('http');
 var socket   = require('socket.io');
 var watch    = require('watch');
+var log      = require('bristol');
+
+// initialize logging
+/*log.addTarget('file', { file: '~/logs/browser.log' })
+   .withFormatter('json');*/
+log.addTarget('console').withFormatter('console');
+
+process.on('uncaughtException', function (err) {
+	log.error('uncaught exception', {err: err});
+});
 
 // initialize the server
 var app = express();
@@ -23,7 +33,10 @@ apiRouter.use(function(err, req, res, next) {
 apiRouter.route('/logs')
 	.get(function(req, res, next) {
 		fs.readdir(logDir, function(err, files) {
-			if(err) return next(err);
+			if(err) {
+				log.warn('failed to list log files', {logDir: logDir, err: err});
+				return next(err);
+			}
 			res.json(files);
 		})
 	});
@@ -41,7 +54,10 @@ apiRouter.route('/log')
 apiRouter.route('/log/:log_id')
 	.get(function(req, res, next) {
 		fs.readFile(logDir + req.params.log_id, 'utf8', function(err, data) {
-			if(err) return next(err);
+			if(err) {
+				log.warn('client attempted to open invalid file', {logDir: logDir, log_id: log_id, err: err});
+				return next(err);
+			}
 			var lines = data.split('\n');
 			var id = Math.max(0, lines.length - 100);
 			res.json({
@@ -56,19 +72,29 @@ apiRouter.route('/log/:log_id')
 		});
 	});
 
-watch.createMonitor(logDir, function(monitor) {
-	var fileListChanged = function(f, stat) {
-		io.emit('filelist-changed', {file: f.substr(logDir.length)});
-	}
-	var fileChanged = function(f, stat) {
-		io.emit('file-changed', {file: f.substr(logDir.length)});
-	}
-	monitor.on('created', fileListChanged);
-	monitor.on('changed', fileChanged);
-	monitor.on('removed', fileListChanged);
-});
+try {
+	watch.createMonitor(logDir, function(monitor) {
+		var fileListChanged = function(f, stat) {
+			io.emit('filelist-changed', {file: f.substr(logDir.length)});
+		}
+		var fileChanged = function(f, stat) {
+			io.emit('file-changed', {file: f.substr(logDir.length)});
+		}
+		monitor.on('created', fileListChanged);
+		monitor.on('changed', fileChanged);
+		monitor.on('removed', fileListChanged);
+	});
+}
+catch(err) {
+	log.error('problem with watch monitor', {logDir: logDir, err: err});
+}
 
 app.use('/api/v1', apiRouter);
-server.listen(port, function() {
-	console.log('listening on *:' + port);
-});
+try {
+	server.listen(port, function() {
+		log.info('listening', {port: port});
+	});
+}
+catch(err) {
+	log.error('couldn\'t start server', {err: err});
+}
