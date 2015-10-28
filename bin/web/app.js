@@ -35,6 +35,12 @@ App.main = function() {
 	var socket = io.connect();
 	ReactDOM.render(React.createElement(views_LogFiles,null),window.document.getElementById("logFiles"));
 	ReactDOM.render(React.createElement(views_LogInspector,null),window.document.getElementsByTagName("main")[0]);
+	socket.on("filelist-changed",function(data) {
+		stores_ListStore.update();
+	});
+	socket.on("file-changed",function(data1) {
+		if(data1.file == stores_LogStore.file) stores_LogStore.update(data1.file);
+	});
 	stores_ListStore.update();
 	stores_LogStore.update("");
 };
