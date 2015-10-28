@@ -442,7 +442,6 @@ msignal_SlotList.prototype = {
 	}
 };
 var promhx_base_AsyncBase = function(d) {
-	this.id = promhx_base_AsyncBase.id_ctr += 1;
 	this._resolved = false;
 	this._pending = false;
 	this._errorPending = false;
@@ -1313,7 +1312,6 @@ var global = window;
 }(new Function("return this")()));
 ;
 App.console = window.console;
-promhx_base_AsyncBase.id_ctr = 0;
 promhx_base_EventLoop.queue = new List();
 stores_ListStore.changed = new msignal_Signal0();
 stores_LogStore.changed = new msignal_Signal0();
@@ -1325,5 +1323,3 @@ views_LogEntries.displayName = "LogEntries";
 views_LogEntryItem.displayName = "LogEntryItem";
 App.main();
 })(typeof console != "undefined" ? console : {log:function(){}}, typeof window != "undefined" ? window : exports);
-
-//# sourceMappingURL=app.js.map
