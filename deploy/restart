@@ -4,6 +4,8 @@ echo "  installing node dependencies..."
 npm install
 echo "  done"
 echo "  restarting server..."
+cd ~/apps/log-browser
 forever restart log-browser.js
+cd ~
 echo "  done"
 echo "application restarted!"
