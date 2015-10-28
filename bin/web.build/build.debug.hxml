@@ -1,0 +1,20 @@
+-main App
+-D no-compilation
+-D web
+-D arch-web
+-D source-map-content
+-D debug
+-D react
+-D promhx
+-D msignal
+-cp C:/HaxeToolkit/haxe/lib/react/0,2,0/
+-cp C:/HaxeToolkit/haxe/lib/react/0,2,0/src/lib/
+-cp C:/HaxeToolkit/haxe/lib/promhx/1,0,21/
+-cp C:/HaxeToolkit/haxe/lib/promhx/1,0,21/src/main/
+-cp C:/HaxeToolkit/haxe/lib/msignal/1,2,2/
+-cp src/main/
+-cp src/lib/
+-cp src/
+-debug
+-cp bin/web.build/haxe
+-js bin\web\app.js

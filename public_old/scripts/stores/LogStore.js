@@ -3,6 +3,7 @@
 		file: "",
 		entries: [],
 		update: function(fileName) {
+			console.log('updating log store!');
 			LogAPI(fileName).get()
 			.then(function(json) {
 				LogStore.file = json.f;
@@ -15,7 +16,7 @@
 			});
 		}
 	};
-	MicroEvent.mixin(LogStore);
 
 	window.LogStore = LogStore;
+	MicroEvent.mixin(window.LogStore);
 })();

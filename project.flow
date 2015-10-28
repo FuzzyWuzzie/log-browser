@@ -1,0 +1,32 @@
+{
+	project: {
+		name: 'log-browser',
+		version: '1.0.0',
+		author: 'Kenton Hamaluik',
+
+		app: {
+			name: 'app',
+			package: 'com.hamaluik.logbrowser',
+			output: 'bin',
+			main: 'App'
+		},
+
+		build: {
+			dependencies: {
+				react: '*',
+				promhx: '*',
+				msignal: '*'
+			},
+			post: {
+				priority: 1,
+				name: 'publish',
+				desc: 'copies the result to the public folder',
+				script: './hooks/publish.js'
+			}
+		},
+
+		//files: {
+		//	index: 'assets/index.html => index.html'
+		//}
+	}
+}

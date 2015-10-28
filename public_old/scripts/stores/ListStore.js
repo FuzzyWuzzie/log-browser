@@ -13,7 +13,7 @@
 			});
 		}
 	};
-	MicroEvent.mixin(ListStore);
 
 	window.ListStore = ListStore;
+	MicroEvent.mixin(window.ListStore);
 })();

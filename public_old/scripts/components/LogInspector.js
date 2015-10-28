@@ -11,6 +11,7 @@
 			LogStore.unbind('change', this.listChanged);
 		},
 		listChanged: function() {
+			console.log('list changed');
 			this.setState({
 				logFile: LogStore.file,
 				entries: LogStore.entries

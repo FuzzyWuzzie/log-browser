@@ -106,44 +106,59 @@ main {
 	}
 	padding: 0 1rem;
 
-	/*ol {
+	ul {
 		list-style-type: none;
 		padding: 0;
-		li {
-			counter-increment: line-counter;
-			&:before {
-				content: counter(line-counter);
-				margin-right: 1rem;
-			}
-		}
-		pre {
-			display: inline;
-			font-family: "Inconsolata",;
-			margin: 0;
-		}
-	}*/
-	table {
-		border-collapse: separate;
-		border-spacing: 0.25rem;
-		width: 100%;
-		td {
-			&:first-child {
-				width: 2rem;
-				text-align: right;
-			}
-			&:nth-child(2) {
-				padding: 0 0.25rem;
-				border: 1px solid $brand-darker;
-				background: white;
-			}
-		}
-		pre {
-			margin: 0;
-		}
+		border: 1px solid $brand-darker;
+		background: white;
+
 		span {
-			display: block;
 			font-family: "Inconsolata",;
-			margin: 0;
+		}
+		.date {
+			&:before {
+				content: '[';
+			}
+			&:after {
+				content: ']';
+			}
+			margin: 0 0.5rem;
+		}
+		.severity {
+			margin: 0 0.5rem 0 0;
+
+			.error {
+				color: red;
+				&:after {
+					content: 'ERROR:';
+				}
+			}
+			.warn {
+				color: yellow;
+				text-transform: uppercase;
+				&:after {
+					content: 'WARN:';
+				}
+			}
+			.info {
+				color: green;
+				margin: 0 -0.5rem 0 0;
+			}
+			.debug {
+				color: blue;
+				&:after {
+					content: 'debug:';
+				}
+			}
+			.trace {
+				color: black;
+				&:after {
+					content: 'trace:';
+				}
+			}
+		}
+		.data {
+			margin: 0 0 0 0.5rem;
 		}
 	}
 }
