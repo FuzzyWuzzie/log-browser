@@ -7,7 +7,7 @@ var watch    = require('watch');
 var log      = require('bristol');
 
 // initialize logging
-log.addTarget('file', { file: '~/logs/browser.log' }).withFormatter('json');
+log.addTarget('file', { file: '/home/donkey/logs/browser.json' }).withFormatter('json');
 //log.addTarget('console').withFormatter('console');
 
 process.on('uncaughtException', function (err) {
